@@ -1,13 +1,19 @@
 from typing import List
-from coins import Coin, NICKEL_COIN, DIME_COIN, QUARTER_DOLLAR_COIN
+from coins import Coin, COIN_VALUES
+
+
+SORTED_COINS = [(coin, value) for coin, value in COIN_VALUES.items()]
+SORTED_COINS.sort(key=lambda x: x[1], reverse=True)
 
 
 def makeChange(amount: int) -> List[Coin]:
-    if amount == 5:
-        return [NICKEL_COIN]
-    elif amount == 10:
-        return [DIME_COIN]
-    elif amount == 25:
-        return [QUARTER_DOLLAR_COIN]
-    return []
+    coin_length = len(SORTED_COINS)
+    coin_index = 0
+    while amount > 0 and coin_index < coin_length:
+        while SORTED_COINS[coin_index][1] > amount and coin_index < coin_length:
+            coin_index += 1
 
+        if coin_index < coin_length:
+            return [SORTED_COINS[coin_index][0]]
+
+    return []
