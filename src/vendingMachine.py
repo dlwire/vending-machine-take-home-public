@@ -1,6 +1,7 @@
 from typing import List
 from coinEvaluator import evaluateCoin, Coin
 
+
 class VendingMachine():
     def __init__(self) -> None:
         self.credit = 0

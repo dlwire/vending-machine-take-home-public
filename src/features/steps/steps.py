@@ -1,13 +1,6 @@
 from behave import given, when, then, use_step_matcher
 from nose import tools
-
-
-AMERICAN_INNOVATION_1_COIN = (
-    'Manganese-Brass',
-    8.1,
-    26.49,
-    2.00,
-)
+from coins import ONE_DOLLAR_COIN
 
 
 use_step_matcher("parse")
@@ -15,12 +8,12 @@ use_step_matcher("parse")
 
 @given('I have $1 credit in the machine')
 def one_dollar_credit(context):
-    context.vending_machine.insertCoin(AMERICAN_INNOVATION_1_COIN)
+    context.vending_machine.insertCoin(ONE_DOLLAR_COIN)
 
 
 @given('I have purchased a cola')
 def purchased_a_cola(context):
-    context.vending_machine.insertCoin(AMERICAN_INNOVATION_1_COIN)
+    context.vending_machine.insertCoin(ONE_DOLLAR_COIN)
     context.vending_machine.orderCola()
     context.vending_machine.retrieveProduct()
 
