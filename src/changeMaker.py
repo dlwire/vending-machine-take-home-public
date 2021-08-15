@@ -7,6 +7,8 @@ SORTED_COINS.sort(key=lambda x: x[1], reverse=True)
 
 
 def makeChange(amount: int) -> List[Coin]:
+    change = []
+
     coin_length = len(SORTED_COINS)
     coin_index = 0
     while amount > 0 and coin_index < coin_length:
@@ -14,6 +16,8 @@ def makeChange(amount: int) -> List[Coin]:
             coin_index += 1
 
         if coin_index < coin_length:
-            return [SORTED_COINS[coin_index][0]]
+            coin, value = SORTED_COINS[coin_index]
+            change.append(coin)
+            amount -= value
 
-    return []
+    return change
