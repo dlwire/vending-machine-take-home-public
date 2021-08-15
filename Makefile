@@ -8,4 +8,5 @@ lint:
 	flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
 test:
+	python -m nose
 	PYTHONPATH='$(CURDIR)/src' $(MAKE) -C src/features test

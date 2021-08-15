@@ -1,24 +1,9 @@
-from typing import List, NamedTuple
-
-
-class Coin(NamedTuple):
-    material: str
-    weight_g: float
-    diameter_mm: float
-    thickness_mm: float
-
-
-AMERICAN_INNOVATION_1_COIN = (
-    'Manganese-Brass',
-    8.1,
-    26.49,
-    2.00,
-)
-
+from typing import List
+from coinEvaluator import evaluateCoin, Coin
 
 class VendingMachine():
     def __init__(self) -> None:
-        self.credit = 0.00
+        self.credit = 0
         self.coin_return = []
         self.display = 'INSERT COIN'
         self.product = ''
@@ -26,16 +11,17 @@ class VendingMachine():
     def checkDisplay(self) -> str:
         return self.display
 
-    def insertCoin(self, coin: Coin):
-        if coin == AMERICAN_INNOVATION_1_COIN:
-            self.credit = 1
+    def insertCoin(self, coin: Coin) -> None:
+        value = evaluateCoin(coin)
+        if value:
+            self.credit += value
         else:
             self.coin_return.append(coin)
 
     def orderCola(self) -> None:
-        if self.credit >= 1.00:
+        if self.credit >= 100:
             self.product = 'cola'
-            self.credit -= 1.00
+            self.credit -= 100
             self.display = 'THANK YOU'
 
     def retrieveChange(self) -> List[Coin]:
