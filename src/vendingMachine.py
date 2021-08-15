@@ -1,5 +1,6 @@
 from typing import List
 from coinEvaluator import evaluateCoin
+from changeMaker import makeChange
 from coins import Coin, NICKEL_COIN
 
 
@@ -27,8 +28,7 @@ class VendingMachine():
             self.display = 'THANK YOU'
 
     def retrieveChange(self) -> List[Coin]:
-        if self.credit == 5:
-            self.coin_return.append(NICKEL_COIN)
+        self.coin_return.extend(makeChange(self.credit))
         coin_return = self.coin_return[:]
         self.coin_return = []
         return coin_return
