@@ -1,10 +1,12 @@
-from behave import *
+from behave import when, then
 from nose import tools
 
+
 @when('I walk up to the machine')
-def step_impl(context):
+def walk_up_to_the_machine(context):
     pass
 
+
 @then('the display says "INSERT COIN"')
-def step_impl(context):
+def the_display_says(context):
     tools.eq_(context.vending_machine.checkDisplay(), 'INSERT COIN')
