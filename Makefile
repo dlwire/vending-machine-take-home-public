@@ -8,4 +8,4 @@ lint:
 	flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
 test:
-	PYTHONPATH='/Users/david/Projects/MEDNAX/vending-machine-take-home-public/src' $(MAKE) -C src/features test
+	PYTHONPATH='$(CURDIR)/src' $(MAKE) -C src/features test
