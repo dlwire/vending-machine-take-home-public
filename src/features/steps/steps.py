@@ -1,6 +1,6 @@
 from behave import given, when, then, use_step_matcher
 from nose import tools
-from coins import ONE_DOLLAR_COIN
+from coins import ONE_DOLLAR_COIN, QUARTER_DOLLAR_COIN, DIME_COIN, NICKEL_COIN
 
 
 use_step_matcher("parse")
@@ -9,6 +9,16 @@ use_step_matcher("parse")
 @given('I have $1 credit in the machine')
 def one_dollar_credit(context):
     context.vending_machine.insertCoin(ONE_DOLLAR_COIN)
+
+
+@given('I have $1.05 credit in the machine')
+def one_dollar_five_cents_credit(context):
+    context.vending_machine.insertCoin(QUARTER_DOLLAR_COIN)
+    context.vending_machine.insertCoin(QUARTER_DOLLAR_COIN)
+    context.vending_machine.insertCoin(QUARTER_DOLLAR_COIN)
+    context.vending_machine.insertCoin(DIME_COIN)
+    context.vending_machine.insertCoin(DIME_COIN)
+    context.vending_machine.insertCoin(DIME_COIN)
 
 
 @given('I have purchased a cola')
@@ -46,3 +56,8 @@ def there_is_no_product(context):
 @then('I receive no change')
 def receive_no_change(context):
     tools.eq_(context.vending_machine.retrieveChange(), [])
+
+
+@then('I receive $0.05 change')
+def receive_05_change(context):
+    tools.eq_(context.vending_machine.retrieveChange(), [NICKEL_COIN])
