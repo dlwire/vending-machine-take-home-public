@@ -7,8 +7,21 @@ from coins import ONE_DOLLAR_COIN
 use_step_matcher("parse")
 
 
+PENNY = (
+    'Copper Plated Zinc',
+    2.500,
+    19.05,
+    1.52,
+)
+
+
+@given('I insert one cent in the coin slot')
+def insert_one_cent(context):
+    context.vending_machine.insertCoin(PENNY)
+
+
 @given('I insert {amount} cents in the coin slot')
-def one_dollar_credit(context, amount: str):
+def insert_coints(context, amount: str):
     for coin in makeChange(int(amount)):
         context.vending_machine.insertCoin(coin)
 
@@ -21,7 +34,7 @@ def purchased_a_cola(context, product: str):
 
 
 @when('I order {product}')
-def order_a_cola(context, product: str):
+def order_product(context, product: str):
     context.vending_machine.order(product)
 
 
@@ -48,6 +61,11 @@ def there_is_no_product(context):
 @then('I receive no change')
 def receive_no_change(context):
     tools.eq_(context.vending_machine.retrieveChange(), [])
+
+
+@then('I receive one cent change')
+def receive_05_change(context):
+    tools.eq_(context.vending_machine.retrieveChange(), [PENNY])
 
 
 @then('I receive {amount} cents change')
