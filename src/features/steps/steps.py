@@ -7,7 +7,7 @@ from coins import ONE_DOLLAR_COIN
 use_step_matcher("parse")
 
 
-@given('I have {amount} cents credit in the machine')
+@given('I insert {amount} cents in the coin slot')
 def one_dollar_credit(context, amount: str):
     for coin in makeChange(int(amount)):
         context.vending_machine.insertCoin(coin)

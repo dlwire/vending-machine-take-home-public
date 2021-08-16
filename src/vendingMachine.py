@@ -19,6 +19,7 @@ class VendingMachine():
         value = evaluateCoin(coin)
         if value:
             self.credit += value
+            self.display = '${:01d}.{:02d}'.format(self.credit // 100, self.credit % 100)
         else:
             self.coin_return.append(coin)
 
