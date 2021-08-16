@@ -27,3 +27,6 @@ class ChangeMakerTest(unittest.TestCase):
 
     def test_make_change_for_65_cents(self):
         self.assertEqual(makeChange(65), [HALF_DOLLAR_COIN, DIME_COIN, NICKEL_COIN])
+
+    def test_bad_value(self):
+        self.assertEqual(makeChange(1), [])

@@ -12,7 +12,7 @@ def makeChange(amount: int) -> List[Coin]:
     coin_length = len(SORTED_COINS)
     coin_index = 0
     while amount > 0 and coin_index < coin_length:
-        while SORTED_COINS[coin_index][1] > amount and coin_index < coin_length:
+        while coin_index < coin_length and SORTED_COINS[coin_index][1] > amount:
             coin_index += 1
 
         if coin_index < coin_length:
