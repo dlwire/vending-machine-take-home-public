@@ -16,7 +16,7 @@ PENNY = (
 
 
 @given('I insert {amount} cents in the coin slot')
-def insert_coints(context, amount: str):
+def insert_coins(context, amount: str):
     amount = int(amount)
 
     coins, value = makeChange(amount)
@@ -24,6 +24,11 @@ def insert_coints(context, amount: str):
 
     for coin in coins:
         context.vending_machine.insertCoin(coin)
+
+
+@given('I order {product}')
+def order_a(context, product: str):
+    context.vending_machine.order(product)
 
 
 @given('I have purchased a {product}')

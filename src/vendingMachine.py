@@ -5,6 +5,10 @@ from coins import Coin
 from products import PRODUCT_COSTS
 
 
+def centsToString(amount: int) -> str:
+    return '${:01d}.{:02d}'.format(amount // 100, amount % 100)
+
+
 class VendingMachine():
     def __init__(self) -> None:
         self.credit = 0
@@ -13,13 +17,20 @@ class VendingMachine():
         self.product = ''
 
     def checkDisplay(self) -> str:
-        return self.display
+        display = self.display
+
+        if self.credit:
+            self.display = centsToString(self.credit)
+        else:
+            self.display = 'INSERT COIN'
+
+        return display
 
     def insertCoin(self, coin: Coin) -> None:
         value = evaluateCoin(coin)
         if value:
             self.credit += value
-            self.display = '${:01d}.{:02d}'.format(self.credit // 100, self.credit % 100)
+            self.display = centsToString(self.credit)
         else:
             self.coin_return.append(coin)
 
@@ -28,6 +39,9 @@ class VendingMachine():
             self.product = product
             self.credit -= PRODUCT_COSTS[product]
             self.display = 'THANK YOU'
+        else:
+            cost = PRODUCT_COSTS[product]
+            self.display = centsToString(cost)
 
     def retrieveChange(self) -> List[Coin]:
         self.coin_return.extend(makeChange(self.credit)[0])
