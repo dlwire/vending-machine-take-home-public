@@ -15,14 +15,14 @@ PENNY = (
 )
 
 
-@given('I insert one cent in the coin slot')
-def insert_one_cent(context):
-    context.vending_machine.insertCoin(PENNY)
-
-
 @given('I insert {amount} cents in the coin slot')
 def insert_coints(context, amount: str):
-    for coin in makeChange(int(amount)):
+    amount = int(amount)
+
+    coins, value = makeChange(amount)
+    coins.extend([PENNY] * (amount - value))
+
+    for coin in coins:
         context.vending_machine.insertCoin(coin)
 
 
@@ -63,11 +63,12 @@ def receive_no_change(context):
     tools.eq_(context.vending_machine.retrieveChange(), [])
 
 
-@then('I receive one cent change')
-def receive_05_change(context):
-    tools.eq_(context.vending_machine.retrieveChange(), [PENNY])
-
-
 @then('I receive {amount} cents change')
 def receive_05_change(context, amount: str):
-    tools.eq_(context.vending_machine.retrieveChange(), makeChange(int(amount)))
+    amount = int(amount)
+
+    coins, value = makeChange(amount)
+    if value < amount:
+        coins = ([PENNY] * (amount - value)) + coins
+
+    tools.eq_(context.vending_machine.retrieveChange(), coins)

@@ -30,7 +30,7 @@ class VendingMachine():
             self.display = 'THANK YOU'
 
     def retrieveChange(self) -> List[Coin]:
-        self.coin_return.extend(makeChange(self.credit))
+        self.coin_return.extend(makeChange(self.credit)[0])
         coin_return = self.coin_return[:]
 
         self.credit = 0
