@@ -1,7 +1,7 @@
 from behave import given, when, then, use_step_matcher
 from nose import tools
 from changeMaker import makeChange
-from coins import ONE_DOLLAR_COIN, QUARTER_DOLLAR_COIN, DIME_COIN, NICKEL_COIN
+from coins import ONE_DOLLAR_COIN
 
 
 use_step_matcher("parse")
@@ -13,16 +13,16 @@ def one_dollar_credit(context, amount: str):
         context.vending_machine.insertCoin(coin)
 
 
-@given('I have purchased a cola')
-def purchased_a_cola(context):
+@given('I have purchased a {product}')
+def purchased_a_cola(context, product: str):
     context.vending_machine.insertCoin(ONE_DOLLAR_COIN)
-    context.vending_machine.orderCola()
+    context.vending_machine.order(product)
     context.vending_machine.retrieveProduct()
 
 
-@when('I order a cola')
-def order_a_cola(context):
-    context.vending_machine.orderCola()
+@when('I order {product}')
+def order_a_cola(context, product: str):
+    context.vending_machine.order(product)
 
 
 @when('I walk up to the machine')
@@ -35,9 +35,9 @@ def the_display_says(context, expected: str):
     tools.eq_(context.vending_machine.checkDisplay(), expected)
 
 
-@then('I receive my cola')
-def receive_my(context):
-    tools.eq_(context.vending_machine.retrieveProduct(), 'cola')
+@then('I receive my {product}')
+def receive_my(context, product: str):
+    tools.eq_(context.vending_machine.retrieveProduct(), product)
 
 
 @then('there is no product to get')

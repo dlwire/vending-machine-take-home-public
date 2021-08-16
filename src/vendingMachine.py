@@ -1,7 +1,8 @@
 from typing import List
 from coinEvaluator import evaluateCoin
 from changeMaker import makeChange
-from coins import Coin, NICKEL_COIN
+from coins import Coin
+from products import PRODUCT_COSTS
 
 
 class VendingMachine():
@@ -21,10 +22,10 @@ class VendingMachine():
         else:
             self.coin_return.append(coin)
 
-    def orderCola(self) -> None:
-        if self.credit >= 100:
-            self.product = 'cola'
-            self.credit -= 100
+    def order(self, product: str) -> None:
+        if self.credit >= PRODUCT_COSTS[product]:
+            self.product = product
+            self.credit -= PRODUCT_COSTS[product]
             self.display = 'THANK YOU'
 
     def retrieveChange(self) -> List[Coin]:
