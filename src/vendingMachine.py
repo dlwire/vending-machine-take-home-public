@@ -35,7 +35,9 @@ class VendingMachine():
             self.coin_return.append(coin)
 
     def order(self, product: str) -> None:
-        if self.credit >= PRODUCT_COSTS[product]:
+        if product not in PRODUCT_COSTS:
+            return
+        elif self.credit >= PRODUCT_COSTS[product]:
             self.product = product
             self.credit -= PRODUCT_COSTS[product]
             self.display = 'THANK YOU'

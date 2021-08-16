@@ -27,6 +27,12 @@ Feature: Purchasing a cola
       And I receive my candy
       And I receive no change
 
+  Scenario: Purchasing a product which isn't available
+    Given I insert 65 cents in the coin slot
+      When I order poop
+      Then there is no product to get
+      And I receive 65 cents change
+
   Scenario: After purchasing a cola the display should reset
     Given I have purchased a cola
       Then the display says "INSERT COIN"
