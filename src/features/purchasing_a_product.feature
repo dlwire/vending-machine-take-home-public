@@ -13,6 +13,13 @@ Feature: Purchasing a cola
       Then I receive my cola
       And I receive 5 cents change
 
+  Scenario: Purchasing chips with exact change
+    Given I have 50 cents credit in the machine
+      When I order chips
+      Then the display says "THANK YOU"
+      And I receive my chips
+      And I receive no change
+
   Scenario: After purchasing a cola the display should reset
     Given I have purchased a cola
       Then the display says "INSERT COIN"
