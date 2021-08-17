@@ -19,7 +19,7 @@ To install the dependencies:
 make install
 ```
 
-To run the application:
+To run the tests:
 ```
-make run
+make test
 ```
